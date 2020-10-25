@@ -1,0 +1,33 @@
+1. When calling getContext('2d') on a Canvas element, it will return a drawing context (i.e.the type of canvas) 
+- in this case a two-dimensional context.  How can we get a three-dimensional context instead?
+
+To use a 3d- drawing context, we need to use a graphics-library called  WebGL. 
+To use it, simply call: getContext('WebGL')
+
+2. How would you create a blue circle using the Canvas element? Explain with words orcode.
+
+In order to create a circle, we could use the arc() function. The arc function is defined as follows:
+
+context.arc(x,y,r,sAngle,eAngle,counterclockwise);
+x = x-coordinate of centre
+y = y-coordinate of centre
+r = radius
+sAngle = starting angle in radians
+eAngle = end angle in radians
+
+To make a blue circle, we simply draw an arc with arbitrary centre and radius, from 0 to 2*PI in radians.
+One way to draw a blue circle could be like this:
+context.beginPath();
+context.fillStyle = '#0000FF';
+context.arc(100, 75, 50, 0, 2 * Math.PI);
+context.fill();
+
+3. What is a more terse (also known as shorter) way of writing the loop in the following usingthe Array.filter method?
+
+The Array.filter method takes a boolean function as a parameter, 
+and returns all values in the array which makes the function return true.
+
+Using Array.filter, we can sort the array like this:
+  countriesStartingWithN.push(countries.filter(startsWith('N')));
+
+

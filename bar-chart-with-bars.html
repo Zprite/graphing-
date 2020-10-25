@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tax forms: Bar chart with lines</title>
+    <meta charset="UTF-8">
+    <script src="taxForms.js"></script>
+  </head>
+  <body>
+
+    <canvas id="chart" width="700" height="550"></canvas>
+
+    <script>
+      const canvas = document.getElementById('chart');
+      const context = canvas.getContext('2d');
+
+      /* Draw a line from (fromX, fromY) to (toX, toY) */
+      function drawLine(fromX, fromY, toX, toY) {
+        context.beginPath();
+        context.moveTo(toX, toY);
+        context.lineTo(fromX, fromY);
+        context.stroke();
+      }
+
+      /* Draw a text (string) on (x, y) */
+      function drawText(text, x, y) {
+        context.fillStyle = 'black';
+        context.fillText(text, x, y);
+      }
+
+      /* Draw a text and with a line to its right */
+      function drawLineWithText(text, fromX, fromY, toX, toY) {
+        drawText(text, fromX - 50, fromY+5);
+        drawLine(fromX, fromY, toX, toY);
+      }
+
+      /* Insert your code here. */
+
+      function createRectangleWithLabel(color,text,x,y,width,height){
+        context.beginPath();
+        context.fillStyle = color;
+        context.fillRect(x,y,width,height);
+        context.stroke();
+        drawText(text,x+width+12,y+height/2);
+      }
+
+      function drawBar(value,color,width, x){
+        context.beginPath();
+        context.fillStyle = color;
+        height = value/100000 * 55;
+        // Hvert intervall på graflinjene er 55px
+        y = 560-height;
+        context.fillRect(x,y,width,550);
+        context.stroke();
+      }
+
+      for (i = 0; i < 10; i++){
+        let text = (10-i)*100000; 
+        let y = i*55 +10;
+        drawLineWithText(text,50,y,550,y);
+      }
+      createRectangleWithLabel("#F00000","Income",600,64,24,24);
+      createRectangleWithLabel("#0000FF","Wealth",600,100,24,24);
+      let x = 100;
+      for (form of taxForms){
+        drawBar(form.income,"#F00000",24,x);
+        drawBar(form.wealth,"#0000FF",24,x+26);
+        x+= 100+26;
+      }
+    </script>
+  </body>
+</html>
